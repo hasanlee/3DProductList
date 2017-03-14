@@ -84,6 +84,7 @@ public class MainFragment extends Fragment {
     public void onStart(){
         super.onStart();
         //onitemclicklistener yeri
+        //test changes
 
     }
 
