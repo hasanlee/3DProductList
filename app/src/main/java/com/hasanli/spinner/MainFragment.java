@@ -17,10 +17,10 @@ import android.widget.TextView;
  */
 public class MainFragment extends Fragment {
     View view;
-
     String[] MODEL ={"Red Standard","Black Standard","White Standard","Red Small"};
     String[] QIYMET ={"5.0","4.50","2.35","5.45"};
     int[] SEKIL ={R.mipmap.spinner,R.mipmap.spinner,R.mipmap.spinner,R.mipmap.spinner};
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -14,7 +14,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 public class MainActivity extends AppCompatActivity
@@ -32,7 +31,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         // Obtain the FirebaseAnalytics instance.
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+       mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
 
 
@@ -133,9 +132,7 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.commit();
 
         }else if (id == R.id.nav_address) {
-
-            Intent map=new Intent(this,MapsActivity.class);
-            startActivity(map);
+            //adres activity
 
         } else if (id == R.id.nav_share) {
 
