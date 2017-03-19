@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">3DPrinted</string>
     <string name="title_activity_settings">3D Printed Products</string>
+    <string name="banner_ad_unit_id">ca-app-pub-4079429142328083/4977771855</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
