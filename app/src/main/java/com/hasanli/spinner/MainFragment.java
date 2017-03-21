@@ -1,30 +1,23 @@
 package com.hasanli.spinner;
-import android.content.Context;
+
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
+import com.squareup.picasso.Picasso;
 
 
 /**
@@ -57,53 +50,77 @@ public class MainFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         listView= (ListView) view.findViewById(R.id.liste);
-        CustomAdapter customAdapter = new CustomAdapter(getActivity());
-        listView.setAdapter(customAdapter);
+        //CustomAdapter customAdapter = new CustomAdapter(getActivity());
+
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("spinners");
+        FirebaseListAdapter mAdapter = new FirebaseListAdapter<SpinnerModel>(getActivity(), SpinnerModel.class, R.layout.iste, ref) {
+            @Override
+            protected void populateView(View view, SpinnerModel spindata, int position) {
+                ((TextView)view.findViewById(R.id.txtModeli2)).setText(spindata.getName());
+                ((TextView)view.findViewById(R.id.txtQiymeti2)).setText(spindata.getPrice().toString()+" AZN");
+                ImageView mImageView = (ImageView) view.findViewById(R.id.imgSekil2);
+                Picasso.with(getContext()).load(spindata.getImage()).into(mImageView);
+                Boolean vipstatus = false;
+
+                if(vipstatus == true){
+                    Button btn = (Button) view.findViewById(R.id.txtQiymeti2);
+                    btn.setBackgroundColor(Color.RED);
+                }
+
+
+
+            }
+        };
+
+
+        //listView.setAdapter(customAdapter);
+        listView.setAdapter(mAdapter);
     }
 
 
 
-    private class CustomAdapter extends ArrayAdapter {
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        CustomAdapter(Context context){
-            super(context,R.layout.iste);
-        }
-
-        @NonNull
-        @Override
-        public View getView(int position, View view2, @NonNull ViewGroup parent) {
-
-            LayoutInflater inflater = LayoutInflater.from(getContext());
-
-            view2 = inflater.inflate(R.layout.iste,null);
-
-            ImageView sekil = (ImageView) view2.findViewById(R.id.imgSekil2);
-            TextView txtModel = (TextView) view2.findViewById(R.id.txtModeli2);
-            TextView txtQiymet = (TextView) view2.findViewById(R.id.txtQiymeti2);
-
-            sekil.setImageResource(SEKIL[position]);
-            txtModel.setText(MODEL[position]);
-            txtQiymet.setText(QIYMET[position]);
-
-            return view2;
-        }
-
-
-        @Override
-        public Object getItem(int position) {
-            return position;
-        }
-
-        @Override
-        public int getCount() {
-            return MODEL.length;
-        }
-    }
+//    private class CustomAdapter extends ArrayAdapter {
+//
+//        @Override
+//        public long getItemId(int position) {
+//            return position;
+//        }
+//
+//        CustomAdapter(Context context){
+//            super(context,R.layout.iste);
+//        }
+//
+//        @NonNull
+//        @Override
+//        public View getView(int position, View view2, @NonNull ViewGroup parent) {
+//
+//            LayoutInflater inflater = LayoutInflater.from(getContext());
+//
+//            view2 = inflater.inflate(R.layout.iste,null);
+//
+//            ImageView sekil = (ImageView) view2.findViewById(R.id.imgSekil2);
+//            TextView txtModel = (TextView) view2.findViewById(R.id.txtModeli2);
+//            TextView txtQiymet = (TextView) view2.findViewById(R.id.txtQiymeti2);
+//
+//            sekil.setImageResource(SEKIL[position]);
+//            txtModel.setText(MODEL[position]);
+//            txtQiymet.setText(QIYMET[position]);
+//
+//            return view2;
+//        }
+//
+//
+//        @Override
+//        public Object getItem(int position) {
+//            return position;
+//        }
+//
+//        @Override
+//        public int getCount() {
+//            return MODEL.length;
+//        }
+//    }
 
     @Override
     public void onStart(){

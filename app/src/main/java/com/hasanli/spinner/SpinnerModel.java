@@ -1,12 +1,9 @@
 package com.hasanli.spinner;
 
-/**
- * Created by hasan on 21.03.2017.
- */
 
 public class SpinnerModel {
     private String mName;
-    private String mPrice;
+    private Integer mPrice;
     private String mImage;
     private Boolean mVip;
 
@@ -14,7 +11,7 @@ public class SpinnerModel {
         // Needed for Firebase
     }
 
-    public SpinnerModel(String name, String price, String image, Boolean vip) {
+    public SpinnerModel(String name, Integer price, String image, Boolean vip) {
         mName = name;
         mPrice = price;
         mImage = image;
@@ -29,11 +26,11 @@ public class SpinnerModel {
         mName = name;
     }
 
-    public String getPrice() {
+    public Integer getPrice() {
         return mPrice;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Integer price) {
         mPrice = price;
     }
 
@@ -45,12 +42,12 @@ public class SpinnerModel {
         mImage = image;
     }
 
-    public void getVip (Boolean vip) {
+    public Boolean getVip (Boolean vip) {
         mVip = vip;
+        return vip;
     }
 
-    public void setVip(Boolean vip) {
+    public void setVip (Boolean vip) {
         mVip = vip;
     }
-
 }
