@@ -2,9 +2,6 @@ package com.hasanli.spinner;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -23,11 +20,8 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static final String INFO_TEXT = "Test Programdir!";
-
     Toolbar toolbar=null;
     NavigationView navigationView=null;
-    FloatingActionButton fab=null;
     DrawerLayout drawer=null;
     FirebaseAnalytics mFirebaseAnalytics;
 
@@ -104,9 +98,8 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Intent ayar=new Intent(this,SettingsActivity.class);
-            startActivity(ayar);
+        if (id == R.id.action_refresh) {
+            //refresh code
             return true;
         }
 

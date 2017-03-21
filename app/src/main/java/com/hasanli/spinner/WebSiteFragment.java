@@ -26,9 +26,9 @@ public class WebSiteFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_website, container, false);
 
-        webv = (WebView) view.findViewById(R.id.webView);
-        webv.setWebViewClient(new WebViewClient());
-        webv.loadUrl("http://localhost:8080/spinners/");
+//        webv = (WebView) view.findViewById(R.id.webView);
+//        webv.setWebViewClient(new WebViewClient());
+//        webv.loadUrl("http://localhost:8080/spinners/");
 
 
         return view;

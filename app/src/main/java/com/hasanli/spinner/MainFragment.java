@@ -1,5 +1,6 @@
 package com.hasanli.spinner;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -7,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -16,6 +18,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
@@ -25,16 +32,14 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
  */
 public class MainFragment extends Fragment {
     View view;
-    TextView promoView;
-    Button btnLoad;
+    ListView listView;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference spinners = database.getReference("spinners");
 
 
     String[] MODEL ={"Red Standard","Black Standard","White Standard","Red Small"};
     String[] QIYMET ={"5.0","4.50","2.35","5.45"};
     int[] SEKIL ={R.mipmap.spinner,R.mipmap.spinner,R.mipmap.spinner,R.mipmap.spinner};
-
-    FirebaseRemoteConfig mFirebaseRemoteConfig;
-    private static final String PROMO_MESSAGE = "promo_message";
 
 
     @Override
@@ -42,13 +47,6 @@ public class MainFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_main, container, false);
 
-        //Firebase Remote Config ayarlari
-        mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
-        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
-                .setDeveloperModeEnabled(BuildConfig.DEBUG)
-                .build();
-        mFirebaseRemoteConfig.setConfigSettings(configSettings);
-        mFirebaseRemoteConfig.setDefaults(R.xml.remote_config_defaults);
 
         return view;
 
@@ -58,43 +56,27 @@ public class MainFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        promoView = (TextView) view.findViewById(R.id.promotext);
-        btnLoad = (Button) view.findViewById(R.id.button);
-
-        btnLoad.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                melumatCek();
-            }
-        });
-
-
-        ListView listView= (ListView) view.findViewById(R.id.liste);
+        listView= (ListView) view.findViewById(R.id.liste);
         CustomAdapter customAdapter = new CustomAdapter(getActivity());
         listView.setAdapter(customAdapter);
     }
 
 
 
-    private void melumatCek() {
-        promoView.setText(mFirebaseRemoteConfig.getString(PROMO_MESSAGE));
-    }
-
-
-
-    class CustomAdapter extends ArrayAdapter {
+    private class CustomAdapter extends ArrayAdapter {
 
         @Override
         public long getItemId(int position) {
-            return 0;
+            return position;
         }
 
         CustomAdapter(Context context){
             super(context,R.layout.iste);
         }
 
+        @NonNull
         @Override
-        public View getView(int position, View view2, ViewGroup parent) {
+        public View getView(int position, View view2, @NonNull ViewGroup parent) {
 
             LayoutInflater inflater = LayoutInflater.from(getContext());
 
@@ -114,7 +96,7 @@ public class MainFragment extends Fragment {
 
         @Override
         public Object getItem(int position) {
-            return null;
+            return position;
         }
 
         @Override
@@ -125,8 +107,27 @@ public class MainFragment extends Fragment {
 
     @Override
     public void onStart(){
-        super.onStart();
         //onitemclicklistener yeri
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Integer itemNo = (Integer) listView.getItemAtPosition(position);
+                TextView txtModel = (TextView) view.findViewById(R.id.txtModeli2);
+                TextView txtQiymet = (TextView) view.findViewById(R.id.txtQiymeti2);
+                String itemName = txtModel.getText().toString();
+                String itemPrice = txtQiymet.getText().toString();
+
+                Toast.makeText(getContext(),"You selected : " + itemNo + " " + itemName + " " + itemPrice,Toast.LENGTH_SHORT).show();
+
+                Intent itemdetal = new Intent(getContext(),ItemDetailActivity.class);
+                itemdetal.putExtra("txtModel",itemName);
+                itemdetal.putExtra("txtQiymet",itemPrice);
+                startActivity(itemdetal);
+
+            }
+        });
+        super.onStart();
+
         //test changes
 
     }
