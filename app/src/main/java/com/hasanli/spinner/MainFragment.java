@@ -26,14 +26,6 @@ import com.squareup.picasso.Picasso;
 public class MainFragment extends Fragment {
     View view;
     ListView listView;
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference spinners = database.getReference("spinners");
-
-
-    String[] MODEL ={"Red Standard","Black Standard","White Standard","Red Small"};
-    String[] QIYMET ={"5.0","4.50","2.35","5.45"};
-    int[] SEKIL ={R.mipmap.spinner,R.mipmap.spinner,R.mipmap.spinner,R.mipmap.spinner};
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,8 +42,6 @@ public class MainFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         listView= (ListView) view.findViewById(R.id.liste);
-        //CustomAdapter customAdapter = new CustomAdapter(getActivity());
-
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("spinners");
         FirebaseListAdapter mAdapter = new FirebaseListAdapter<SpinnerModel>(getActivity(), SpinnerModel.class, R.layout.iste, ref) {
@@ -73,57 +63,13 @@ public class MainFragment extends Fragment {
             }
         };
 
-
-        //listView.setAdapter(customAdapter);
         listView.setAdapter(mAdapter);
     }
 
 
-
-//    private class CustomAdapter extends ArrayAdapter {
-//
-//        @Override
-//        public long getItemId(int position) {
-//            return position;
-//        }
-//
-//        CustomAdapter(Context context){
-//            super(context,R.layout.iste);
-//        }
-//
-//        @NonNull
-//        @Override
-//        public View getView(int position, View view2, @NonNull ViewGroup parent) {
-//
-//            LayoutInflater inflater = LayoutInflater.from(getContext());
-//
-//            view2 = inflater.inflate(R.layout.iste,null);
-//
-//            ImageView sekil = (ImageView) view2.findViewById(R.id.imgSekil2);
-//            TextView txtModel = (TextView) view2.findViewById(R.id.txtModeli2);
-//            TextView txtQiymet = (TextView) view2.findViewById(R.id.txtQiymeti2);
-//
-//            sekil.setImageResource(SEKIL[position]);
-//            txtModel.setText(MODEL[position]);
-//            txtQiymet.setText(QIYMET[position]);
-//
-//            return view2;
-//        }
-//
-//
-//        @Override
-//        public Object getItem(int position) {
-//            return position;
-//        }
-//
-//        @Override
-//        public int getCount() {
-//            return MODEL.length;
-//        }
-//    }
-
     @Override
     public void onStart(){
+        super.onStart();
         //onitemclicklistener yeri
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -143,8 +89,6 @@ public class MainFragment extends Fragment {
 
             }
         });
-        super.onStart();
-
         //test changes
 
     }

@@ -9,14 +9,22 @@
     <string name="btn_cart">Səbətə göndər</string>
     <string name="btn_buy">İndi Al!</string>
     <string name="welcome">Welcome!</string>
-    <string name="action_refresh">Reload</string>
+    <string name="action_notification">Notification</string>
+    <string name="action_rewarded_video">Earn Points!</string>
+
+    <!--Drawer Menyu-->
+    <string name="menu_products">Spinners</string>
+    <string name="menu_ck_code">Check Quality</string>
+    <string name="menu_website">Web Site</string>
+    <string name="menu_address">Address</string>
 
 
     <!--fragment main strings-->
-    <string name="modeladi">Mehsul haqqinda etrafli melumat adi</string>
+    <string name="modeladi">Mehsulun uzun adi</string>
     <string name="qiymeti">10</string>
     <string name="valyuta">AZN</string>
     <string name="etrafli">Mehsul haqqinda etrafli melumat!</string>
+    <string name="no_connection">No Connection!</string>
 
 
     <!--fragment bcode strings-->
@@ -24,6 +32,9 @@
     <string name="btn_check_code">Check Code</string>
     <string name="check_status">Original or Not Original</string>
     <string name="model_number_inputText">Model number</string>
+    <string name="modeltext_empty">Model nomresini daxil edin!</string>
+    <string name="original">This is Original</string>
+    <string name="not_original">This is not original</string>
 
 
 
