@@ -1,6 +1,7 @@
 package com.hasanli.spinner;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -74,15 +75,20 @@ public class MainFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Integer itemNo = (Integer) listView.getItemAtPosition(position);
+                SpinnerModel itemNo = (SpinnerModel) listView.getItemAtPosition(position);
                 TextView txtModel = (TextView) view.findViewById(R.id.txtModeli2);
                 TextView txtQiymet = (TextView) view.findViewById(R.id.txtQiymeti2);
+                ImageView imgSekil = (ImageView) view.findViewById(R.id.imgSekil2);
                 String itemName = txtModel.getText().toString();
                 String itemPrice = txtQiymet.getText().toString();
+                imgSekil.buildDrawingCache();
+                Bitmap itemImage = imgSekil.getDrawingCache();
 
-                Toast.makeText(getContext(),"You selected : " + itemNo + " " + itemName + " " + itemPrice,Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(getContext(),"You selected :" + itemName + " " + itemPrice,Toast.LENGTH_SHORT).show();
 
                 Intent itemdetal = new Intent(getContext(),ItemDetailActivity.class);
+                itemdetal.putExtra("itemImage",itemImage);
                 itemdetal.putExtra("txtModel",itemName);
                 itemdetal.putExtra("txtQiymet",itemPrice);
                 startActivity(itemdetal);
